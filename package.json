@@ -1,0 +1,44 @@
+{
+  "name": "bg-fe-server",
+  "version": "1.0.5",
+  "description": "",
+  "main": "index.js",
+  "contributors": "jiangminxi",
+  "bin": {
+    "bg-fe-server": "./index.js",
+    "express": "^4.16.3",
+    "mkdirp": "^0.5.1",
+    "mockjs": "^1.0.1-beta3",
+    "swagger-mock-maker": "^1.1.3"
+  },
+  "engines": {
+    "node": ">= 6.5.0",
+    "npm": ">= 3.0.0"
+  },
+  "scripts": {
+    "start": "node ./mockRunner",
+    "single": "node mode-single.js",
+    "pull": "node ./mockPuller",
+    "pull:swagger": "node ./mockPuller"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmx164491960/bg-fe-server.git"
+  },
+  "author": "jiangminxi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmx164491960/bg-fe-server/issues"
+  },
+  "homepage": "https://github.com/jmx164491960/bg-fe-server#readme",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "express": "^4.17.1",
+    "http-proxy": "^1.18.0",
+    "mockjs": "^1.1.0",
+    "swagger-mock-maker": "^1.1.4"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5"
+  }
+}
