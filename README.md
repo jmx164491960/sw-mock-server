@@ -8,8 +8,8 @@
 
 ### 安装
 
-git clone https://github.com/jmx164491960/swaggermock-server.git  
-cd swaggermock-server  
+git clone https://github.com/jmx164491960/sw-mock-server.git  
+cd sw-mock-server  
 npm i
 
 ### 配置说明
