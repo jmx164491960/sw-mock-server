@@ -32,17 +32,4 @@ module.exports = function(app, conf) {
 
   // 路由
   generateRouter(app, conf);
-
-  // swagger外扩展的接口
-  if (conf.extendMockArr) {
-    conf.extendMockArr.forEach(config => {
-      app.use(config.url, (req, res) => {
-        // 解决mock跨域问题
-        res.header('Access-Control-Allow-Origin', req.headers.origin);
-        res.header('Access-Control-Allow-Credentials', true);
-        res.header('Access-Control-Allow-Headers', 'Authorization,X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method' )
-        res.json(config.data);
-      })
-    });
-  }
 };

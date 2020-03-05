@@ -1,6 +1,6 @@
 {
   "name": "sw-mock-server",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "main": "index.js",
   "contributors": "jiangminxi",
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/jmx164491960/sw-mock-server.git"
   },
   "scripts": {
-    "demo": "node ./demo.js -s",
+    "demo": "node ./demo.js -p -s",
     "debug": "node --inspect-brk=5858 ./demo.js -s"
   },
   "author": "jiangminxi",

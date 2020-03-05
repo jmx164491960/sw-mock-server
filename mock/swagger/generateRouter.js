@@ -8,6 +8,7 @@ const chalk = require('chalk');
 const Mock = require('mockjs');
 
 function scan(path, app) {
+  let swMockDatas = [];
   const files = fs.readdirSync(path);
 
   for (let i = 0; i < files.length; i++) {
@@ -15,20 +16,16 @@ function scan(path, app) {
     const stats = fs.statSync(fpath);
 
     if (stats.isDirectory()) {
-      scan(fpath, app);
+      swMockDatas = [...swMockDatas, ...scan(fpath, app)];
     }
     if (stats.isFile()) {
-      const {url, getData} = require(fpath);
-      console.log('app.use', url);
-      app.use(url, (req, res) => {
-        // 解决跨域问题
-        res.header('Access-Control-Allow-Origin', req.headers.origin);
-        res.header('Access-Control-Allow-Credentials', true);
-        res.header('Access-Control-Allow-Headers', 'Authorization,X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method' )
-        return res.json(getData(Mock));
-      });
+      const mockData = require(fpath);
+      const {url, getData} = mockData;
+      swMockDatas.push(mockData);
     }
   }
+
+  return swMockDatas;
 }
 
 module.exports = function(app, conf) {
@@ -40,8 +37,41 @@ module.exports = function(app, conf) {
     hasRoutes = stats.isDirectory();
   } catch(e) {}
 
+  let mockDatas = [];
   if (hasRoutes) {
-    scan(routesPath, app);
-    console.log(chalk.green('swagger mock is running'))
+    const swMockDatas = scan(routesPath, app);
+    mockDatas = swMockDatas;
   }
+
+  // swagger外扩展的接口
+  if (conf.extendMockArr && conf.extendMockArr.length > 0) {
+    conf.extendMockArr.forEach(item => {
+      item.getData = () => {
+        return item.data;
+      }
+    });
+    mockDatas = [...mockDatas, ...conf.extendMockArr];
+  }
+  // 拦截
+  if (mockDatas && mockDatas.length > 0) {
+    try {
+      mockDatas.forEach(config => {
+        const {url, getData} = config;
+        app.use(url, (req, res) => {
+          // 解决跨域问题
+          res.header('Access-Control-Allow-Origin', req.headers.origin);
+          res.header('Access-Control-Allow-Credentials', true);
+          res.header('Access-Control-Allow-Headers', 'Authorization,X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method' )
+          return res.json(getData(Mock));
+        });
+      });
+    } catch (e) {
+      console.error('app.use:', e);
+    }
+  }
+
+  console.log(chalk.green('Mock is running'));
+  mockDatas.forEach(data => {
+    console.log('Mock Interface:', data.url);
+  })
 };

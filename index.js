@@ -8,7 +8,7 @@ const program = require('commander');
 const mockClean = require('./mock/swagger/clean');
 
 program
-	.version(require('../package.json').version, '-v, --version')
+	.version(require('./package.json').version, '-v, --version')
 	.description('swagger mock server')
 	.option('-c --clean [type]', '清理mock数据')
 	.option('-p --pull [type]', '生成mock数据')

@@ -16,7 +16,7 @@ const synchronizeSwagger = {
     let basePath = this.url.match(/:[^\/]+\/*(.*)\/v2\/api-docs/)[1];
     if (basePath !== '') basePath = '/' + basePath;
     this.basePath = basePath;
-    this.blacklist = blacklist;
+    this.blacklist = blacklist || [];
     this.outputPath = './routes';
     await this.parse();
   },
@@ -86,10 +86,11 @@ module.exports = {
 
       // 生成文件, 已存在的跳过，避免覆盖本地以及编辑的文件
       const fPath = join(outputPath, `${method}.js`);
+
       await writeFile(fPath, template, { flag: 'wx' });
       console.log(`增加Mock文件：${fPath}`);
     } catch (error) {
-      console.log('err:', error);
+      console.log('err:', error.message);
       /* eslint-disable no-empty */
     }
   },
