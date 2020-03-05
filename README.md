@@ -19,7 +19,7 @@
     "port": "8089", // 程序监听端口
     "swaggerOptions": {
       // swagger文档页面，比如http://xxxx/swagger-ui.html
-      "url": "http://192.168.1.213:1921/swagger-ui.html"
+      "url": "http://xxxx/swagger-ui.html"
     }
   });
 ```

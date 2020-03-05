@@ -23,7 +23,7 @@ run({
   ],
   "swaggerOptions": {
     // swagger文档页面，比如http://xxxx/swagger-ui.html
-    "url": "http://192.168.1.213:1921/swagger-ui.html",
+    "url": "http://xxxx/swagger-ui.html",
     "blacklist": [], // 黑名单，类型是字符串数组
     "filterReg": /getOverallBroadcastingData/, // 可以是URL正则或者为空，用于匹配swagger上的接口，如果空则匹配swagger上所有。
     // 数组类型数据的模拟个数  从min-max区间内随机模拟
