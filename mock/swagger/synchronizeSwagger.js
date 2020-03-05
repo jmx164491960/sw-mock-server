@@ -8,7 +8,7 @@ const writeFile = promisify(fs.writeFile);
 const mkdir = promisify(mkdirp);
 
 const synchronizeSwagger = {
-  init(swaggerOptions) {
+  async init(swaggerOptions) {
     const { url, blacklist } = swaggerOptions;
     this.swaggerOptions = swaggerOptions;
     // 如果输入的是接口可视化地址，转换成v2/api-docs结尾的接口地址
@@ -18,12 +18,12 @@ const synchronizeSwagger = {
     this.basePath = basePath;
     this.blacklist = blacklist;
     this.outputPath = './routes';
-    this.parse();
+    await this.parse();
   },
 
   async parse() {
     const { paths } = await swaggerMockMaker(this.url, this.swaggerOptions);
-    this.traverse(paths);
+    await this.traverse(paths);
   },
 
   generateTemplate({ summary, example, method, path }) {
@@ -41,7 +41,8 @@ module.exports = {
   },
 
   // 遍历api path信息
-  traverse(paths) {
+  async traverse(paths) {
+    const promiseList = []
     for (let path in paths) {
       // if (this.filterReg && !this.filterReg.test(path)) {
       //   continue;
@@ -57,9 +58,10 @@ module.exports = {
         if (!pathInfo['responses']['200']) {
           continue;
         }
-        this.generate(path, method, pathInfo);
+        promiseList.push(this.generate(path, method, pathInfo));
       }
     }
+    await Promise.all(promiseList);
   },
 
   async generate(path, method, pathInfo) {

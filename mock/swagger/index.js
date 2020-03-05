@@ -5,7 +5,7 @@ const delayRes = require('./middleware/delayRes');
 const successRate = require('./middleware/successRate');
 // const { port, delayRes: useDelayRes, successRate: useSuccessRates } = require('../../conf');
 const generateRouter = require('./generateRouter');
-const manual = require('../manual');
+// const manual = require('../manual');
 const chalk = require('chalk');
 
 module.exports = function(app, conf) {
@@ -33,14 +33,16 @@ module.exports = function(app, conf) {
   // 路由
   generateRouter(app, conf);
 
-  // 手写mock
-  manual.forEach(config => {
-    app.use(config.url, (req, res) => {
-      // 解决mock跨域问题
-      res.header('Access-Control-Allow-Origin', req.headers.origin);
-      res.header('Access-Control-Allow-Credentials', true);
-      res.header('Access-Control-Allow-Headers', 'Authorization,X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method' )
-      res.json(config.data);
-    })
-  })
+  // swagger外扩展的接口
+  if (conf.extendMockArr) {
+    conf.extendMockArr.forEach(config => {
+      app.use(config.url, (req, res) => {
+        // 解决mock跨域问题
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+        res.header('Access-Control-Allow-Credentials', true);
+        res.header('Access-Control-Allow-Headers', 'Authorization,X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method' )
+        res.json(config.data);
+      })
+    });
+  }
 };
