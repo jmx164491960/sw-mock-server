@@ -33,40 +33,6 @@ const taskHandler = {
           fail(...arguments);
         }
       });
-        // const host = req.hostname;
-        // switch (host) {
-          // 根据自己的项目配置
-          // case 'scmfe.banggood.cn':
-          //   proxy.web(req, res, {
-          //     target: 'http://127.0.0.1:8088'
-          //   });
-          //   return;
-    
-          // case 'ewdtest.banggood.cn':
-          //   proxy.web(req, res, {
-          //     target: 'http://127.0.0.1:4321/'
-          //   });
-          //   return;
-    
-          // case 'erptest.banggood.cn':
-          //   proxy.web(req, res, {
-          //     target: 'http://127.0.0.1:8081'
-          //   });
-          //   return;
-    
-          // case 'erpdev.banggood.cn':
-          //   proxy.web(req, res, {
-          //     target: 'http://127.0.0.1:8081'
-          //   })
-          //   return;
-    
-          // default:
-          //   proxy.web(req, res, {
-          //     target: `http://127.0.0.1:${conf.proxyPort}`
-          //   });
-          //   return;
-        // }
-      // });
     });
   },
   pull: function({swaggerOptions}) {
