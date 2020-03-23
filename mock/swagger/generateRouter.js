@@ -6,6 +6,7 @@ const fs = require('fs');
 const join = require('path').join;
 const chalk = require('chalk');
 const Mock = require('mockjs');
+const {routesPath} = require('../../config');
 
 function scan(path, app) {
   let swMockDatas = [];
@@ -29,7 +30,6 @@ function scan(path, app) {
 }
 
 module.exports = function(app, conf) {
-  const routesPath = join(__dirname, './routes');
   let hasRoutes = false;
 
   try {

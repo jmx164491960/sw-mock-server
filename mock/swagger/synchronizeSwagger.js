@@ -6,6 +6,7 @@ const swaggerMockMaker = require('swagger-mock-maker');
 
 const writeFile = promisify(fs.writeFile);
 const mkdir = promisify(mkdirp);
+const {routesPath} = require('../../config');
 
 const synchronizeSwagger = {
   async init(swaggerOptions) {
@@ -17,7 +18,6 @@ const synchronizeSwagger = {
     if (basePath !== '') basePath = '/' + basePath;
     this.basePath = basePath;
     this.blacklist = blacklist || [];
-    this.outputPath = './routes';
     await this.parse();
   },
 
@@ -65,7 +65,7 @@ module.exports = {
   },
 
   async generate(path, method, pathInfo) {
-    const outputPath = join(__dirname, this.outputPath, path);
+    const outputPath = join(routesPath, path)
     const {
       summary,
       responses: { 200: responseOK },
