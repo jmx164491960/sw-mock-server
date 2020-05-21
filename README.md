@@ -8,6 +8,11 @@
 
 ### 快速上手
 
+git clone https://github.com/jmx164491960/sw-mock-server.git
+
+cd sw-mock-server
+
+npm install
 
 **1.基础用法:**
 
