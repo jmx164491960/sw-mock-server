@@ -29,6 +29,8 @@ npm install
   });
 ```
 node sw --clean --pull --server
+
+
 等待几秒后，访问localhost:8089 + [接口路径]可访问到mock数据
 
 演示项目：https://github.com/jmx164491960/bg-fe-server
