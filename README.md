@@ -6,9 +6,9 @@
 
 ### 安装
 
-### 快速上手
-
 npm install sw-mock-server
+
+### 快速上手
 
 **1.基础用法:**
 
