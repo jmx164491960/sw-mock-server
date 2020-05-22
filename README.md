@@ -8,11 +8,7 @@
 
 ### 快速上手
 
-git clone https://github.com/jmx164491960/sw-mock-server.git
-
-cd sw-mock-server
-
-npm install
+npm install sw-mock-server
 
 **1.基础用法:**
 
@@ -101,7 +97,8 @@ sw.js:
 字段 | 类型 | 用法  
 -|-|-
 port | string | 程序监控端口 |
-fail | function | 请求没有被mock拦截时的回调函数 |
+fail | function | 请求没有被mock命中的回调函数 |
+extendMockArr | object[] | 扩展mock数据，格式{url: string, data: object} |
 swaggerOptions | Object | 从swagger上生成mock过程的相关配置 |
 swaggerOptions.url | string | swagger文档地址，如http://xxxx/swagger-ui.html |
 swaggerOptions.filterReg | regexp  | 白名单规则，推荐接口量多的时候使用 |
